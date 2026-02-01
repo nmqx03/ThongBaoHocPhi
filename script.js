@@ -61,19 +61,19 @@ function Receipt({ student, month, schoolName, bankInfo, qrCodeUrl }) {
       {/* Thông tin học sinh */}
       <div className="receipt-info">
         <div className="info-item">
-          <span className="info-label">Tên Học Sinh</span>
+          <span className="info-label">Tên Học Sinh:</span>
           <span className="info-value">{student.name}</span>
         </div>
         <div className="info-item">
-          <span className="info-label">Lớp</span>
+          <span className="info-label">Lớp:</span>
           <span className="info-value">{student.cls || "—"}</span>
         </div>
         <div className="info-item">
-          <span className="info-label">Số Buổi Học</span>
+          <span className="info-label">Số Buổi Học:</span>
           <span className="info-value">{student.sessions || 0} buổi</span>
         </div>
         <div className="info-item">
-          <span className="info-label">Học Phí 1 Buổi</span>
+          <span className="info-label">Học Phí 1 Buổi:</span>
           <span className="info-value">{fmt(student.pricePerSession)} VND</span>
         </div>
       </div>
@@ -247,7 +247,7 @@ function App() {
           <div className="logo-icon">📄</div>
           <div>
             <div className="logo-text">Thông báo học phí</div>
-            <div className="logo-sub">Tạo phiếu thông báo học phí từ Excel</div>
+            <div className="logo-sub">Tạo phiếu thôngitg báo học phí từ Excel</div>
           </div>
         </div>
 
