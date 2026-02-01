@@ -246,7 +246,7 @@ function App() {
         <div className="logo-row">
           <div className="logo-icon">📄</div>
           <div>
-            <div className="logo-text">Tuition Notice Generator</div>
+            <div className="logo-text">Thông báo học phí</div>
             <div className="logo-sub">Tạo phiếu thông báo học phí từ Excel</div>
           </div>
         </div>
