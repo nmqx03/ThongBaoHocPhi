@@ -18,12 +18,15 @@ function parseSheet(ws) {
     const pricePerSession = Number(row[40]) || 0;
     const fee = Number(row[41]) || 0;
     const cls = row[4] || "";
+    const surcharge = Number(row[44]) || 0;   // Cột AS (index 44)
+    const note = row[45] ? String(row[45]).trim() : ""; // Cột AT (index 45)
     if (!name || String(name).trim() === "") continue;
     students.push({ 
       stt: sttCounter++,
       name: String(name).trim(), 
       cls: String(cls).trim(),
-      sessions, pricePerSession, fee
+      sessions, pricePerSession, fee,
+      surcharge, note
     });
   }
   return students;
@@ -61,6 +64,17 @@ function ReceiptMarkup({ student, bankInfo, qrCodeUrl, id }) {
         <div><div className="receipt-total-label">Tổng học phí</div></div>
         <div className="receipt-total-value">{fmt(student.fee)} VND</div>
       </div>
+      {student.surcharge > 0 && (
+        <div className="receipt-surcharge">
+          <div className="receipt-surcharge-row">
+            <div className="receipt-surcharge-label">Phụ thu</div>
+            <div className="receipt-surcharge-value">{fmt(student.surcharge)} VND</div>
+          </div>
+          {student.note && (
+            <div className="receipt-surcharge-note">{student.note}</div>
+          )}
+        </div>
+      )}
       {bankInfo && (
         <div className="receipt-bank">
           <div className="receipt-bank-title">Thông tin thanh toán</div>
@@ -249,7 +263,7 @@ function App() {
       const blob = await new Promise((res) => canvas.toBlob(res, "image/png"));
       await navigator.clipboard.write([new window.ClipboardItem({ "image/png": blob })]);
       setCopiedCards(prev => ({ ...prev, [key]: true }));
-      setTimeout(() => setCopiedCards(prev => ({ ...prev, [key]: false })), 1400);
+      setTimeout(() => setCopiedCards(prev => ({ ...prev, [key]: false })), 300);
     } catch (err) {
       alert("⚠️ Không thể copy. Thử mở phiếu và copy từ modal.");
     }
@@ -274,7 +288,7 @@ function App() {
       setToast({ text: `Đang tạo phiếu ${i + 1} / ${list.length}...`, progress: ((i + 1) / list.length) * 100 });
     }
     setToast({ text: `✅ Đã download ${list.length} phiếu!`, progress: 100 });
-    setTimeout(() => setToast(null), 2000);
+    setTimeout(() => setToast(null), 300);
   }, [students, checkedStudents, bankInfo, qrCodeUrl]);
 
   // ─── Bỏ chọn tất cả checkbox ──────────────────────────────────
