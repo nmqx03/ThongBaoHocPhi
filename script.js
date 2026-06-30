@@ -61,7 +61,7 @@ function ReceiptMarkup({ student, bankInfo, qrCodeUrl, id }) {
         </div>
       </div>
       <div className="receipt-total">
-        <div><div className="receipt-total-label">Tổng học phí</div></div>
+        <div><div className="receipt-total-label">Học phí</div></div>
         <div className="receipt-total-value">{fmt(student.fee)} VND</div>
       </div>
       {student.surcharge > 0 && (
@@ -73,6 +73,12 @@ function ReceiptMarkup({ student, bankInfo, qrCodeUrl, id }) {
           {student.note && (
             <div className="receipt-surcharge-note">{student.note}</div>
           )}
+        </div>
+      )}
+      {student.surcharge > 0 && (
+        <div className="receipt-sum">
+          <div className="receipt-sum-label">Học phí + Phụ thu</div>
+          <div className="receipt-sum-value">{fmt(student.fee + student.surcharge)} VND</div>
         </div>
       )}
       {bankInfo && (
